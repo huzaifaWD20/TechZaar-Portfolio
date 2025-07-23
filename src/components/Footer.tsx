@@ -66,7 +66,7 @@ export default function Footer() {
               alt="Logo"
               className="h-8 w-8 rounded-full object-cover"
             />
-            <span className="text-2xl font-bold text-white">TechZaar Solutions</span>
+            <span className="text-2xl font-bold text-white">TechZaar Technology</span>
           </div>
           <p className="text-gray-300 text-lg max-w-2xl mx-auto leading-relaxed">
             Building innovative software solutions that transform businesses and drive digital success.
@@ -119,7 +119,7 @@ export default function Footer() {
                 ))}
               </div>
             </div>
-            <p className="text-gray-400 text-sm">© {new Date().getFullYear()} TechZaar Solutions. All rights reserved.</p>
+            <p className="text-gray-400 text-sm">© {new Date().getFullYear()} TechZaar Technology. All rights reserved.</p>
           </div>
         </AnimatedContainer>
       </div>
