@@ -4,86 +4,8 @@ import FeaturedProjects from "../components/FeaturedProjects"
 import ServicesSection from "../components/ServicesSection"
 import TechSection from "../components/TechSection"
 
-// const sampleProjects = [
-//   {
-//     name: "AI-Powered Analytics Dashboard",
-//     quote:
-//       "A comprehensive analytics platform that leverages machine learning to provide real-time insights and predictive analytics for enterprise clients. Features include custom dashboards, automated reporting, and intelligent data visualization.",
-//     designation: "Enterprise Web Application",
-//     src: "/placeholder.svg?height=400&width=600",
-//     gallery: [
-//       "/placeholder.svg?height=800&width=1200",
-//       "/placeholder.svg?height=800&width=1200",
-//       "/placeholder.svg?height=800&width=1200",
-//       "/placeholder.svg?height=800&width=1200",
-//     ],
-//     technologies: ["React", "TypeScript", "Python", "TensorFlow", "PostgreSQL", "AWS"],
-//     link: "https://example.com/analytics-dashboard",
-//   },
-//   {
-//     name: "Smart E-Commerce Platform",
-//     quote:
-//       "A next-generation e-commerce solution with AI-driven product recommendations, real-time inventory management, and seamless payment integration. Built for scalability and performance.",
-//     designation: "Full-Stack E-Commerce Solution",
-//     src: "/placeholder.svg?height=400&width=600",
-//     gallery: [
-//       "/placeholder.svg?height=800&width=1200",
-//       "/placeholder.svg?height=800&width=1200",
-//       "/placeholder.svg?height=800&width=1200",
-//       "/placeholder.svg?height=800&width=1200",
-//     ],
-//     technologies: ["Next.js", "Node.js", "MongoDB", "Stripe", "Redis", "Docker"],
-//     link: "https://example.com/ecommerce-platform",
-//   },
-//   {
-//     name: "Healthcare Management System",
-//     quote:
-//       "A comprehensive healthcare management platform that streamlines patient records, appointment scheduling, and medical billing. Designed with HIPAA compliance and security at its core.",
-//     designation: "Healthcare Software Solution",
-//     src: "/placeholder.svg?height=400&width=600",
-//     gallery: [
-//       "/placeholder.svg?height=800&width=1200",
-//       "/placeholder.svg?height=800&width=1200",
-//       "/placeholder.svg?height=800&width=1200",
-//       "/placeholder.svg?height=800&width=1200",
-//     ],
-//     technologies: ["Vue.js", "Laravel", "MySQL", "FHIR", "OAuth", "Kubernetes"],
-//     link: "https://example.com/healthcare-system",
-//   },
-//   {
-//     name: "Blockchain Trading Platform",
-//     quote:
-//       "A secure and scalable cryptocurrency trading platform with advanced charting tools, real-time market data, and institutional-grade security features. Supports multiple cryptocurrencies and trading pairs.",
-//     designation: "Fintech Trading Application",
-//     src: "/placeholder.svg?height=400&width=600",
-//     gallery: [
-//       "/placeholder.svg?height=800&width=1200",
-//       "/placeholder.svg?height=800&width=1200",
-//       "/placeholder.svg?height=800&width=1200",
-//       "/placeholder.svg?height=800&width=1200",
-//     ],
-//     technologies: ["React", "WebSocket", "Blockchain", "Node.js", "Redis", "Microservices"],
-//     link: "https://example.com/trading-platform",
-//   },
-// ]
-
-// Sample projects data based on your requirements
 const sampleProjects = [
   // Gallery Projects (with images)
-  {
-    name: "QuickHire - Freelance Marketplace",
-    quote: "Dual-sided marketplace connecting employers with freelancers through intelligent skill-matching algorithms and real-time communication. Features role-based authentication, CRUD profile management, CV uploads, swipe-based project discovery with advanced filtering, integrated video calling, and bidirectional review system with automated skill extraction.",
-    designation: "Freelance Mobile App Project - Flutter/Dart Development",
-    src: "/images/quick-hire/quickhirelogo.png",
-    gallery: [
-      "/placeholder.svg?height=800&width=1200",
-      "/placeholder.svg?height=800&width=1200",
-      "/placeholder.svg?height=800&width=1200",
-      "/placeholder.svg?height=800&width=1200",
-    ],
-    technologies: ["Flutter", "Dart", "Firebase", "WebRTC", "REST APIs", "Provider"],
-    type: "gallery" as const,
-  },
   {
     name: "SightLine Golf - Strategy Mobile App",
     quote: "Comprehensive UI/UX prototype for golf strategy mobile app featuring dual-mode interaction system. Built dynamic mode-switching with Coach Mode for personalized insights and Fun Mode for social features. Created responsive mobile interface with course mapping layouts, hazard detection mockups, player analytics dashboard, and cross-platform compatibility.",
@@ -121,26 +43,10 @@ const sampleProjects = [
       "/images/wisdom-app/img1 (14).png",
       "/images/wisdom-app/img1 (15).png",
       "/images/wisdom-app/img1 (16).png",
-      "/images/wisdom-app/img1 (17).png"
-      
-
+      "/images/wisdom-app/img1 (17).png",
     ],
     "technologies": ["Angular","SCSS","Typescript", "Ionic", "Figma", "UI/UX Design", "Responsive Design", "Mobile Development", "Design Systems"],
     type: "gallery" as const
-  },
-  {
-    name: "Tech Jewel - E-Commerce Platform",
-    quote: "Scalable e-commerce platform for electronic components featuring seamless shopping experience, responsive UI, and optimized backend operations. Engineered robust API for product management, search functionality, cart operations, and order processing with secure transactions and efficient deployment architecture.",
-    designation: "Freelance Full Stack Development Project",
-    src: "/images/tech-jewel/tjlogo.jpg",
-    gallery: [
-      "/placeholder.svg?height=800&width=1200",
-      "/placeholder.svg?height=800&width=1200",
-      "/placeholder.svg?height=800&width=1200",
-      "/placeholder.svg?height=800&width=1200",
-    ],
-    technologies: ["React", "Node.js", "MongoDB", "Express.js", "Stripe", "AWS"],
-    type: "gallery" as const,
   },
   // GitHub Projects (source code available)
   {
@@ -183,6 +89,28 @@ const sampleProjects = [
     type: "github" as const,
     githubUrl: "https://github.com/muneeeb12/Flecks-student-portal",
   },
+  {
+    name: "QuickHire - Freelance Marketplace",
+    quote: "Dual-sided marketplace connecting employers with freelancers through intelligent skill-matching algorithms and real-time communication. Features role-based authentication, CRUD profile management, CV uploads, swipe-based project discovery with advanced filtering, integrated video calling, and bidirectional review system with automated skill extraction.",
+    designation: "Freelance Mobile App Project - Flutter/Dart Development",
+    src: "/images/quick-hire/quickhirelogo.png",
+    gallery: [],
+    technologies: ["Flutter", "Dart", "Firebase", "WebRTC", "REST APIs", "Provider"],
+    // type: "gallery" as const,
+    type: "github" as const,
+    githubUrl: "https://github.com/huzaifaWD20/QuickHire_FYP",
+  },
+  {
+    name: "Tech Jewel - E-Commerce Platform",
+    quote: "Scalable e-commerce platform for electronic components featuring seamless shopping experience, responsive UI, and optimized backend operations. Engineered robust API for product management, search functionality, cart operations, and order processing with secure transactions and efficient deployment architecture.",
+    designation: "Freelance Full Stack Development Project",
+    src: "/images/tech-jewel/tjlogo.jpg",
+    gallery: [],
+    technologies: ["React", "Node.js", "MongoDB", "Express.js", "Stripe", "AWS"],
+    // type: "gallery" as const,
+    type: "github" as const,
+    githubUrl: "https://github.com/huzaifaWD20/react-ecommerce",
+  }
 ]
 
 const Portfolio = () => {
