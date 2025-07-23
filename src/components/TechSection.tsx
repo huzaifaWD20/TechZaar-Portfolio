@@ -6,9 +6,9 @@ import Particles, { initParticlesEngine } from "@tsparticles/react"
 import { loadSlim } from "@tsparticles/slim"
 
 // Simple utility function to combine class names
-function cn(...classes: (string | undefined | null | boolean)[]): string {
-  return classes.filter(Boolean).join(" ")
-}
+// function cn(...classes: (string | undefined | null | boolean)[]): string {
+//   return classes.filter(Boolean).join(" ")
+// }
 
 // Sparkles Component
 function Sparkles({

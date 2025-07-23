@@ -145,7 +145,7 @@ export default function ServicesSection() {
   const subtitleRef = useRef(null)
   const gridRef = useRef(null)
 
-  const isSectionInView = useInView(sectionRef, { once: true, margin: "-200px" })
+  // const isSectionInView = useInView(sectionRef, { once: true, margin: "-200px" })
   const isTitleInView = useInView(titleRef, { once: true, margin: "-100px" })
   const isSubtitleInView = useInView(subtitleRef, { once: true, margin: "-100px" })
   const isGridInView = useInView(gridRef, { once: true, margin: "-150px" })

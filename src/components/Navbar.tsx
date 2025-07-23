@@ -60,9 +60,14 @@ export default function AdvancedNavbar({ className }: AdvancedNavbarProps) {
   const NavbarLogo = () => {
     return (
       <a href="#" className="relative z-20 mr-4 flex items-center space-x-2 px-2 py-1 text-sm font-normal text-white">
-        <div className="h-8 w-8 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 flex items-center justify-center">
+        {/* <div className="h-8 w-8 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 flex items-center justify-center">
           <span className="text-white font-bold text-sm">⚛</span>
-        </div>
+        </div> */}
+        <img
+          src="/images/logoTechZaar-removebg-1.png" // <-- replace with your image path
+          alt="Logo"
+          className="h-8 w-8 rounded-full object-cover"
+        />
         <span className="font-medium text-white">TechZaar Solutions</span>
       </a>
     )
@@ -146,7 +151,6 @@ export default function AdvancedNavbar({ className }: AdvancedNavbarProps) {
   const MobileNavMenu = ({
     children,
     isOpen,
-    onClose,
   }: {
     children: React.ReactNode
     isOpen: boolean

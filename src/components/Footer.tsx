@@ -58,9 +58,14 @@ export default function Footer() {
         {/* Logo and Description - Centered */}
         <AnimatedContainer className="text-center mb-12">
           <div className="flex items-center justify-center gap-3 mb-6">
-            <div className="h-10 w-10 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 flex items-center justify-center">
+            {/* <div className="h-10 w-10 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 flex items-center justify-center">
               <span className="text-white font-bold text-lg">⚛</span>
-            </div>
+            </div> */}
+            <img
+              src="/images/logoTechZaar-removebg-1.png" // <-- replace with your image path
+              alt="Logo"
+              className="h-8 w-8 rounded-full object-cover"
+            />
             <span className="text-2xl font-bold text-white">TechZaar Solutions</span>
           </div>
           <p className="text-gray-300 text-lg max-w-2xl mx-auto leading-relaxed">
