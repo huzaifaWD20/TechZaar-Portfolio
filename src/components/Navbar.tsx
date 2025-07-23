@@ -68,7 +68,7 @@ export default function AdvancedNavbar({ className }: AdvancedNavbarProps) {
           alt="Logo"
           className="h-8 w-8 rounded-full object-cover"
         />
-        <span className="font-medium text-white">TechZaar Solutions</span>
+        <span className="font-medium text-white">TechZaar Technology</span>
       </a>
     )
   }
