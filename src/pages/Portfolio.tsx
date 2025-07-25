@@ -7,7 +7,11 @@ import TechSection from "../components/TechSection"
 const sampleProjects = [
   // Gallery Projects (with images)
   {
+<<<<<<< Updated upstream
     name: "SightLine Golf - Strategy Mobile App",
+=======
+    name: "Golf - Strategy Mobile App",
+>>>>>>> Stashed changes
     quote: "Comprehensive UI/UX prototype for golf strategy mobile app featuring dual-mode interaction system. Built dynamic mode-switching with Coach Mode for personalized insights and Fun Mode for social features. Created responsive mobile interface with course mapping layouts, hazard detection mockups, player analytics dashboard, and cross-platform compatibility.",
     designation: "Freelance UI/UX MVP - Angular Ionic Development",
     src: "/images/golf-app/img1.png",
@@ -20,6 +24,25 @@ const sampleProjects = [
       "/images/golf-app/img6.png",
     ],
     technologies: ["Angular", "Ionic", "TypeScript", "SCSS", "Figma", "Responsive Design"],
+    type: "gallery" as const,
+  },
+  {
+    name: "QuickHire - Freelance Marketplace",
+    quote: "Dual-sided marketplace connecting employers with freelancers through intelligent skill-matching algorithms and real-time communication. Features role-based authentication, CRUD profile management, CV uploads, swipe-based project discovery with advanced filtering, integrated video calling, and bidirectional review system with automated skill extraction.",
+    designation: "Freelance Mobile App Project - Flutter/Dart Development",
+    src: "/images/quick-hire/quickhirelogo.png",
+    gallery: [
+      "/images/quick-hire/img1.jpg",
+      "/images/quick-hire/img2.jpg",
+      "/images/quick-hire/img3.jpg",
+      "/images/quick-hire/img4.jpg",
+      "/images/quick-hire/img5.jpg",
+      "/images/quick-hire/img6.jpg",
+      "/images/quick-hire/img7.jpg",
+      "/images/quick-hire/img8.jpg",
+      "/images/quick-hire/img9.jpg",
+    ],
+    technologies: ["Flutter", "Dart", "Firebase", "WebRTC", "REST APIs", "Provider"],
     type: "gallery" as const,
   },
   {
@@ -48,6 +71,58 @@ const sampleProjects = [
     "technologies": ["Angular","SCSS","Typescript", "Ionic", "Figma", "UI/UX Design", "Responsive Design", "Mobile Development", "Design Systems"],
     type: "gallery" as const
   },
+<<<<<<< Updated upstream
+=======
+  {
+    name: "University Carpool Platform",
+    quote: "Comprehensive ride-sharing system designed for university students with intelligent route matching, push notifications, and real-time ride tracking. Implemented JWT-based authentication, location filtering within 1-3km radius, and SignalR for real-time communication between drivers and passengers with automated matching algorithms.",
+    designation: "Full-Stack Ride Sharing Web Application",
+    src: "/images/carpool-sys/carpool-logo.png",
+    gallery: [
+      "/images/carpool-sys/img (1).jpg",
+      "/images/carpool-sys/img (2).jpg",
+      "/images/carpool-sys/img (3).jpg",
+      "/images/carpool-sys/img (4).jpg",
+      "/images/carpool-sys/img (5).jpg",
+      "/images/carpool-sys/img (6).jpg",
+      "/images/carpool-sys/img (7).jpg",
+    ],
+    technologies: ["ASP.NET Core", "MySQL", "React.js", "SignalR", "Entity Framework", "JWT"],
+    type: "gallery" as const
+  },
+  {
+    name: "Credit-Based Phone Case System",
+    quote: "Vendor-focused inventory management system with comprehensive credit tracking, automated reporting, and integrated payment processing. Built using ASP.NET Core MVC and React.js with SQL Server backend, featuring real-time inventory updates, customer management, financial reporting, and secure payment gateway integration deployed on IIS.",
+    designation: "Enterprise Inventory Management System",
+    src: "/images/case-connect/case-logo.png",
+    gallery: [
+      "/images/case-connect/img (1).jpg",
+      "/images/case-connect/img (2).jpg",
+      "/images/case-connect/img (3).jpg",
+      "/images/case-connect/img (4).jpg",
+      "/images/case-connect/img (5).jpg",
+      "/images/case-connect/img (6).jpg",
+      "/images/case-connect/img (7).jpg",
+      "/images/case-connect/img (8).jpg",
+    ],
+    technologies: ["ASP.NET Core MVC", "Entity Framework", "React.js", "SQL Server", "IIS", "Payment APIs"],
+    type: "gallery" as const,
+  },
+  {
+    name: "Tech Jewel - E-Commerce Platform",
+    quote: "Scalable e-commerce platform for electronic components featuring seamless shopping experience, responsive UI, and optimized backend operations. Engineered robust API for product management, search functionality, cart operations, and order processing with secure transactions and efficient deployment architecture.",
+    designation: "Freelance Full Stack Development Project",
+    src: "/images/tech-jewel/tjlogo.jpg",
+    gallery: [
+      "/images/tech-jewel/img1.png",
+      "/images/tech-jewel/img2.png",
+      "/images/tech-jewel/img3.png",
+      "/images/tech-jewel/img4.png",
+    ],
+    technologies: ["React", "Node.js", "MongoDB", "Express.js", "Stripe", "AWS"],
+    type: "gallery" as const,
+  },
+>>>>>>> Stashed changes
   // GitHub Projects (source code available)
   {
     name: "Real-Time Chat Application",
@@ -57,27 +132,7 @@ const sampleProjects = [
     gallery: [],
     technologies: ["Node.js", "Express.js", "WebSockets", "MongoDB", "Socket.io", "JWT"],
     type: "github" as const,
-    githubUrl: "https://github.com/muneeeb12/chat-application",
-  },
-  {
-    name: "University Carpool Platform",
-    quote: "Comprehensive ride-sharing system designed for university students with intelligent route matching, push notifications, and real-time ride tracking. Implemented JWT-based authentication, location filtering within 1-3km radius, and SignalR for real-time communication between drivers and passengers with automated matching algorithms.",
-    designation: "Full-Stack Ride Sharing Web Application",
-    src: "github-placeholder",
-    gallery: [],
-    technologies: ["ASP.NET Core", "MySQL", "React.js", "SignalR", "Entity Framework", "JWT"],
-    type: "github" as const,
-    githubUrl: "https://github.com/muneeeb12/Carpool",
-  },
-  {
-    name: "Credit-Based Phone Case System",
-    quote: "Vendor-focused inventory management system with comprehensive credit tracking, automated reporting, and integrated payment processing. Built using ASP.NET Core MVC and React.js with SQL Server backend, featuring real-time inventory updates, customer management, financial reporting, and secure payment gateway integration deployed on IIS.",
-    designation: "Enterprise Inventory Management System",
-    src: "github-placeholder",
-    gallery: [],
-    technologies: ["ASP.NET Core MVC", "Entity Framework", "React.js", "SQL Server", "IIS", "Payment APIs"],
-    type: "github" as const,
-    githubUrl: "https://github.com/muneeeb12/CaseConnect",
+    githubUrl: "https://github.com/",
   },
   {
     name: "Flecks Student Portal",
@@ -87,6 +142,7 @@ const sampleProjects = [
     gallery: [],
     technologies: ["Node.js", "React.js", "Express.js", "MySQL", "JWT", "Multer"],
     type: "github" as const,
+<<<<<<< Updated upstream
     githubUrl: "https://github.com/muneeeb12/Flecks-student-portal",
   },
   {
@@ -110,6 +166,9 @@ const sampleProjects = [
     // type: "gallery" as const,
     type: "github" as const,
     githubUrl: "https://github.com/huzaifaWD20/react-ecommerce",
+=======
+    githubUrl: "https://github.com/",
+>>>>>>> Stashed changes
   }
 ]
 
