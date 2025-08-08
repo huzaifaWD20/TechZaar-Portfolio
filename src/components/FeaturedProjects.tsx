@@ -19,9 +19,11 @@ type Project = {
   gallery: string[]
   technologies: string[]
   link?: string
-  type: 'github' | 'gallery' | 'external'
+  type: 'github' | 'gallery' | 'external' | 'shopify' | 'webdev' | 'uiux' | 'mobile' | 'dotnet'
   githubUrl?: string
 }
+
+type FilterType = 'all' | 'shopify' | 'webdev' | 'uiux' | 'mobile' | 'dotnet'
 
 type FeaturedProjectsProps = {
   projects: Project[]
@@ -79,6 +81,32 @@ const CircularButton = ({
       )}
     >
       {icon}
+    </button>
+  )
+}
+
+// Filter Button Component
+const FilterButton = ({
+  isActive,
+  onClick,
+  children,
+}: {
+  isActive: boolean
+  onClick: () => void
+  children: React.ReactNode
+}) => {
+  return (
+    <button
+      onClick={onClick}
+      className={cn(
+        "px-6 py-2 rounded-lg font-medium transition-all duration-300",
+        "border border-white/20 backdrop-blur-sm",
+        isActive
+          ? "bg-gradient-to-r from-purple-400/20 via-pink-400/20 to-purple-300/20 text-white border-purple-400/50"
+          : "text-gray-300 hover:text-white hover:border-white/40",
+      )}
+    >
+      {children}
     </button>
   )
 }
@@ -214,17 +242,29 @@ const GalleryModal = ({
 
 export default function FeaturedProjects({ projects, autoplay = false }: FeaturedProjectsProps) {
   const [active, setActive] = useState(0)
+  const [filter, setFilter] = useState<FilterType>('all')
+  const [filteredProjects, setFilteredProjects] = useState(projects)
   const [isMobileView, setIsMobileView] = useState(false)
   const [componentWidth, setComponentWidth] = useState(0)
   const [galleryOpen, setGalleryOpen] = useState(false)
   const componentRef = useRef<HTMLDivElement>(null)
 
+  // Filter projects based on selected filter
+  useEffect(() => {
+    if (filter === 'all') {
+      setFilteredProjects(projects)
+    } else {
+      setFilteredProjects(projects.filter(project => project.type === filter))
+    }
+    setActive(0) // Reset to first project when filter changes
+  }, [filter, projects])
+
   const handleNext = () => {
-    setActive((prev) => (prev + 1) % projects.length)
+    setActive((prev) => (prev + 1) % filteredProjects.length)
   }
 
   const handlePrev = () => {
-    setActive((prev) => (prev - 1 + projects.length) % projects.length)
+    setActive((prev) => (prev - 1 + filteredProjects.length) % filteredProjects.length)
   }
 
   const isActive = (index: number) => {
@@ -232,7 +272,7 @@ export default function FeaturedProjects({ projects, autoplay = false }: Feature
   }
 
   const openGallery = () => {
-    if (projects[active].type === 'gallery') {
+    if (filteredProjects[active].type === 'gallery' || filteredProjects[active].gallery.length > 0) {
       setGalleryOpen(true)
     }
   }
@@ -242,10 +282,12 @@ export default function FeaturedProjects({ projects, autoplay = false }: Feature
   }
 
   const handleViewProject = () => {
-    const currentProject = projects[active]
-    if (currentProject.type === 'github' && currentProject.githubUrl) {
+    const currentProject = filteredProjects[active]
+    if (currentProject.githubUrl) {
       window.open(currentProject.githubUrl, '_blank')
-    } else if (currentProject.type === 'gallery') {
+    } else if (currentProject.type === 'shopify' && currentProject.link) {
+      window.open(currentProject.link, '_blank')
+    } else if (currentProject.gallery.length > 0) {
       openGallery()
     } else if (currentProject.link) {
       window.open(currentProject.link, '_blank')
@@ -253,24 +295,30 @@ export default function FeaturedProjects({ projects, autoplay = false }: Feature
   }
 
   const getButtonText = () => {
-    const currentProject = projects[active]
-    if (currentProject.type === 'github') return 'View on GitHub'
-    if (currentProject.type === 'gallery') return 'View Gallery'
+    const currentProject = filteredProjects[active]
+    if (currentProject.githubUrl) return 'View on GitHub'
+    if (currentProject.type === 'shopify') return 'Visit Store'
+    if (currentProject.gallery.length > 0) return 'View Gallery'
     return 'View Project'
   }
 
   const getButtonIcon = () => {
-    const currentProject = projects[active]
-    if (currentProject.type === 'github') return <Github className="w-4 h-4" />
+    const currentProject = filteredProjects[active]
+    if (currentProject.githubUrl) return <Github className="w-4 h-4" />
     return <ExternalLink className="w-4 h-4" />
   }
 
+  const getFilterCount = (filterType: FilterType) => {
+    if (filterType === 'all') return projects.length
+    return projects.filter(project => project.type === filterType).length
+  }
+
   useEffect(() => {
-    if (autoplay) {
+    if (autoplay && filteredProjects.length > 0) {
       const interval = setInterval(handleNext, 5000)
       return () => clearInterval(interval)
     }
-  }, [autoplay])
+  }, [autoplay, filteredProjects.length])
 
   const handleResize = useCallback(() => {
     if (componentRef.current) {
@@ -306,6 +354,19 @@ export default function FeaturedProjects({ projects, autoplay = false }: Feature
     return minGap + (maxGap - minGap) * ((width - minWidth) / (maxWidth - minWidth))
   }
 
+  if (filteredProjects.length === 0) {
+    return (
+      <section id="projects" className="py-20 bg-black relative overflow-hidden">
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center">
+            <h2 className="text-4xl font-bold text-white mb-6">No Projects Found</h2>
+            <p className="text-gray-300">No projects match the selected filter.</p>
+          </div>
+        </div>
+      </section>
+    )
+  }
+
   return (
     <section id="projects" className="py-20 bg-black relative overflow-hidden">
       {/* Background gradient */}
@@ -324,9 +385,49 @@ export default function FeaturedProjects({ projects, autoplay = false }: Feature
               Creations
             </span>
           </h2>
-          <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+          <p className="text-xl text-gray-300 max-w-3xl mx-auto mb-12">
             Explore our portfolio of cutting-edge software solutions that have transformed businesses across industries.
           </p>
+
+          {/* Filter Buttons */}
+          <div className="flex flex-wrap justify-center gap-4 mb-8">
+            <FilterButton
+              isActive={filter === 'all'}
+              onClick={() => setFilter('all')}
+            >
+              View All ({getFilterCount('all')})
+            </FilterButton>
+            <FilterButton
+              isActive={filter === 'shopify'}
+              onClick={() => setFilter('shopify')}
+            >
+              Shopify ({getFilterCount('shopify')})
+            </FilterButton>
+            <FilterButton
+              isActive={filter === 'webdev'}
+              onClick={() => setFilter('webdev')}
+            >
+              Web Dev ({getFilterCount('webdev')})
+            </FilterButton>
+            <FilterButton
+              isActive={filter === 'uiux'}
+              onClick={() => setFilter('uiux')}
+            >
+              UI/UX ({getFilterCount('uiux')})
+            </FilterButton>
+            <FilterButton
+              isActive={filter === 'mobile'}
+              onClick={() => setFilter('mobile')}
+            >
+              Mobile ({getFilterCount('mobile')})
+            </FilterButton>
+            <FilterButton
+              isActive={filter === 'dotnet'}
+              onClick={() => setFilter('dotnet')}
+            >
+              .NET ({getFilterCount('dotnet')})
+            </FilterButton>
+          </div>
         </div>
 
         {/* Project Showcase */}
@@ -349,7 +450,7 @@ export default function FeaturedProjects({ projects, autoplay = false }: Feature
             <div className="w-full">
               <div className="relative" style={{ paddingTop: "73%" }}>
                 <AnimatePresence>
-                  {projects.map((project, index) => (
+                  {filteredProjects.map((project, index) => (
                     <motion.div
                       key={project.src}
                       initial={{
@@ -363,7 +464,7 @@ export default function FeaturedProjects({ projects, autoplay = false }: Feature
                         scale: isActive(index) ? 1 : 0.95,
                         z: isActive(index) ? 0 : -100,
                         rotate: isActive(index) ? 0 : randomRotateY(),
-                        zIndex: isActive(index) ? 999 : projects.length + 2 - index,
+                        zIndex: isActive(index) ? 999 : filteredProjects.length + 2 - index,
                         y: isActive(index) ? [0, -80, 0] : 0,
                       }}
                       exit={{
@@ -378,7 +479,7 @@ export default function FeaturedProjects({ projects, autoplay = false }: Feature
                       <div
                         className={cn(
                           "relative h-full w-full group",
-                          project.type === 'gallery' ? "cursor-pointer" : ""
+                          (project.type === 'gallery' || project.gallery.length > 0) ? "cursor-pointer" : ""
                         )}
                         style={{
                           borderRadius: "18px",
@@ -386,7 +487,7 @@ export default function FeaturedProjects({ projects, autoplay = false }: Feature
                           backgroundColor: "#33313d",
                           transition: "background-color 0.3s ease-in-out",
                         }}
-                        onClick={project.type === 'gallery' ? openGallery : undefined}
+                        onClick={(project.type === 'gallery' || project.gallery.length > 0) ? openGallery : undefined}
                       >
                         <div
                           className="relative h-full w-full overflow-hidden transition-all duration-300 flex items-center justify-center"
@@ -397,11 +498,11 @@ export default function FeaturedProjects({ projects, autoplay = false }: Feature
                               : 'transparent'
                           }}
                         >
-                          {project.type === 'github' ? (
+                          {project.githubUrl ? (
                             <div className="flex flex-col items-center justify-center text-white">
                               <GitHubLogo className="w-32 h-32 mb-4 text-gray-300 group-hover:text-white transition-colors duration-300" />
                               <p className="text-lg font-semibold opacity-75 group-hover:opacity-100 transition-opacity duration-300">
-                                View Source Code
+                                View on GitHub
                               </p>
                             </div>
                           ) : (
@@ -412,7 +513,7 @@ export default function FeaturedProjects({ projects, autoplay = false }: Feature
                                 className="h-full w-full object-cover object-center transition-transform duration-300 group-hover:scale-105"
                               />
                               <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-all duration-300" />
-                              {project.type === 'gallery' && (
+                              {(project.type === 'gallery' || project.gallery.length > 0) && (
                                 <div className="absolute bottom-4 left-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                                   <p className="text-white text-sm font-medium">Click to view gallery</p>
                                 </div>
@@ -436,12 +537,12 @@ export default function FeaturedProjects({ projects, autoplay = false }: Feature
                 exit={{ y: -20, opacity: 0 }}
                 transition={{ duration: 0.2, ease: "easeInOut" }}
               >
-                <h3 className="text-2xl font-bold text-white mb-2">{projects[active].name}</h3>
-                <p className="text-gray-400 text-sm mb-4">{projects[active].designation}</p>
+                <h3 className="text-2xl font-bold text-white mb-2">{filteredProjects[active].name}</h3>
+                <p className="text-gray-400 text-sm mb-4">{filteredProjects[active].designation}</p>
 
                 {/* Technologies */}
                 <div className="flex flex-wrap gap-2 mb-6">
-                  {projects[active].technologies.map((tech, index) => (
+                  {filteredProjects[active].technologies.map((tech, index) => (
                     <span
                       key={index}
                       className="px-3 py-1 text-white text-xs rounded-full border border-white/20"
@@ -452,7 +553,7 @@ export default function FeaturedProjects({ projects, autoplay = false }: Feature
                 </div>
 
                 <motion.p className="text-lg text-gray-300 leading-relaxed mb-8">
-                  {projects[active].quote.split(" ").map((word, index) => (
+                  {filteredProjects[active].quote.split(" ").map((word, index) => (
                     <motion.span
                       key={index}
                       initial={{ filter: "blur(10px)", opacity: 0, y: 5 }}
@@ -493,8 +594,8 @@ export default function FeaturedProjects({ projects, autoplay = false }: Feature
       <GalleryModal
         isOpen={galleryOpen}
         onClose={closeGallery}
-        images={projects[active].gallery}
-        projectName={projects[active].name}
+        images={filteredProjects[active]?.gallery || []}
+        projectName={filteredProjects[active]?.name || ""}
       />
     </section>
   )
