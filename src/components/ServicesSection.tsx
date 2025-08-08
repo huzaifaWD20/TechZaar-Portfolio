@@ -2,7 +2,7 @@
 
 import { type ReactNode, useRef, useState } from "react"
 import { motion, useInView } from "framer-motion"
-import { Globe, Smartphone, Brain, ShoppingCart, Cloud, Plug, Edit, Store, MessageCircle, Zap, Users, TrendingUp, Shield, Palette, Code, Rocket } from "lucide-react"
+import { Globe, Smartphone, Brain, ShoppingCart, Cloud, Plug, Edit, Store, Zap, Users, TrendingUp, Shield, Palette, Code, Rocket } from "lucide-react"
 
 // Simple utility function to combine class names
 function cn(...classes: (string | undefined | null | boolean)[]): string {
@@ -94,14 +94,14 @@ const services = [
 ]
 
 // Optimized grid layout for perfect alignment
-const gridLayout = [
-  { colSpan: "col-span-1", rowSpan: "row-span-1" }, // Custom Web Development
-  { colSpan: "col-span-1", rowSpan: "row-span-1" }, // Mobile App Development  
-  { colSpan: "col-span-2", rowSpan: "row-span-1" }, // AI & Machine Learning (large)
-  { colSpan: "col-span-2", rowSpan: "row-span-1" }, // E-commerce Solutions (large)
-  { colSpan: "col-span-1", rowSpan: "row-span-1" }, // Enterprise Integration
-  { colSpan: "col-span-1", rowSpan: "row-span-1" }, // SaaS Development
-]
+// const gridLayout = [
+//   { colSpan: "col-span-1", rowSpan: "row-span-1" }, // Custom Web Development
+//   { colSpan: "col-span-1", rowSpan: "row-span-1" }, // Mobile App Development  
+//   { colSpan: "col-span-2", rowSpan: "row-span-1" }, // AI & Machine Learning (large)
+//   { colSpan: "col-span-2", rowSpan: "row-span-1" }, // E-commerce Solutions (large)
+//   { colSpan: "col-span-1", rowSpan: "row-span-1" }, // Enterprise Integration
+//   { colSpan: "col-span-1", rowSpan: "row-span-1" }, // SaaS Development
+// ]
 
 const BentoGrid = ({
   children,
@@ -383,7 +383,7 @@ export default function ServicesSection() {
           <BentoGrid className="max-w-6xl mx-auto">
             {services.map((service, index) => {
               const IconComponent = iconMap[service.icon]
-              const layout = gridLayout[index]
+              // const layout = gridLayout[index]
 
               // Randomized layout positioning
               let className = ""
