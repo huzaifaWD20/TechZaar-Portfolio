@@ -354,18 +354,18 @@ export default function FeaturedProjects({ projects, autoplay = false }: Feature
     return minGap + (maxGap - minGap) * ((width - minWidth) / (maxWidth - minWidth))
   }
 
-  if (filteredProjects.length === 0) {
-    return (
-      <section id="projects" className="py-20 bg-black relative overflow-hidden">
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center">
-            <h2 className="text-4xl font-bold text-white mb-6">No Projects Found</h2>
-            <p className="text-gray-300">No projects match the selected filter.</p>
-          </div>
-        </div>
-      </section>
-    )
-  }
+  // if (filteredProjects.length === 0) {
+  //   return (
+  //     <section id="projects" className="py-20 bg-black relative overflow-hidden">
+  //       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+  //         <div className="text-center">
+  //           <h2 className="text-4xl font-bold text-white mb-6">No Projects Found</h2>
+  //           <p className="text-gray-300">No projects match the selected filter.</p>
+  //         </div>
+  //       </div>
+  //     </section>
+  //   )
+  // }
 
   return (
     <section id="projects" className="py-20 bg-black relative overflow-hidden">
@@ -431,163 +431,173 @@ export default function FeaturedProjects({ projects, autoplay = false }: Feature
         </div>
 
         {/* Project Showcase */}
-        <div
-          ref={componentRef}
-          className="w-full mx-auto antialiased font-sans"
-          style={{
-            backgroundColor: "transparent",
-          }}
-        >
+        {filteredProjects.length > 0 ? (
           <div
-            className="relative"
+            ref={componentRef}
+            className="w-full mx-auto antialiased font-sans"
             style={{
-              display: "grid",
-              gridTemplateColumns: isMobileView ? "1fr" : "1fr 1fr",
-              gap: `${calculateGap(componentWidth)}px`,
+              backgroundColor: "transparent",
             }}
           >
-            {/* Image Section */}
-            <div className="w-full">
-              <div className="relative" style={{ paddingTop: "73%" }}>
-                <AnimatePresence>
-                  {filteredProjects.map((project, index) => (
-                    <motion.div
-                      key={project.src}
-                      initial={{
-                        opacity: 0,
-                        scale: 0.9,
-                        z: -100,
-                        rotate: randomRotateY(),
-                      }}
-                      animate={{
-                        opacity: isActive(index) ? 1 : 0.7,
-                        scale: isActive(index) ? 1 : 0.95,
-                        z: isActive(index) ? 0 : -100,
-                        rotate: isActive(index) ? 0 : randomRotateY(),
-                        zIndex: isActive(index) ? 999 : filteredProjects.length + 2 - index,
-                        y: isActive(index) ? [0, -80, 0] : 0,
-                      }}
-                      exit={{
-                        opacity: 0,
-                        scale: 0.9,
-                        z: 100,
-                        rotate: randomRotateY(),
-                      }}
-                      transition={{ duration: 0.4, ease: "easeInOut" }}
-                      className="absolute inset-0 origin-bottom"
-                    >
-                      <div
-                        className={cn(
-                          "relative h-full w-full group",
-                          (project.type === 'gallery' || project.gallery.length > 0) ? "cursor-pointer" : ""
-                        )}
-                        style={{
-                          borderRadius: "18px",
-                          padding: "1px",
-                          backgroundColor: "#33313d",
-                          transition: "background-color 0.3s ease-in-out",
+            <div
+              className="relative"
+              style={{
+                display: "grid",
+                gridTemplateColumns: isMobileView ? "1fr" : "1fr 1fr",
+                gap: `${calculateGap(componentWidth)}px`,
+              }}
+            >
+              {/* Image Section */}
+              <div className="w-full">
+                <div className="relative" style={{ paddingTop: "73%" }}>
+                  <AnimatePresence>
+                    {filteredProjects.map((project, index) => (
+                      <motion.div
+                        key={project.src}
+                        initial={{
+                          opacity: 0,
+                          scale: 0.9,
+                          z: -100,
+                          rotate: randomRotateY(),
                         }}
-                        onClick={(project.type === 'gallery' || project.gallery.length > 0) ? openGallery : undefined}
+                        animate={{
+                          opacity: isActive(index) ? 1 : 0.7,
+                          scale: isActive(index) ? 1 : 0.95,
+                          z: isActive(index) ? 0 : -100,
+                          rotate: isActive(index) ? 0 : randomRotateY(),
+                          zIndex: isActive(index) ? 999 : filteredProjects.length + 2 - index,
+                          y: isActive(index) ? [0, -80, 0] : 0,
+                        }}
+                        exit={{
+                          opacity: 0,
+                          scale: 0.9,
+                          z: 100,
+                          rotate: randomRotateY(),
+                        }}
+                        transition={{ duration: 0.4, ease: "easeInOut" }}
+                        className="absolute inset-0 origin-bottom"
                       >
                         <div
-                          className="relative h-full w-full overflow-hidden transition-all duration-300 flex items-center justify-center"
-                          style={{
-                            borderRadius: "17px",
-                            background: project.type === 'github' 
-                              ? 'linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%)'
-                              : 'transparent'
-                          }}
-                        >
-                          {project.githubUrl ? (
-                            <div className="flex flex-col items-center justify-center text-white">
-                              <GitHubLogo className="w-32 h-32 mb-4 text-gray-300 group-hover:text-white transition-colors duration-300" />
-                              <p className="text-lg font-semibold opacity-75 group-hover:opacity-100 transition-opacity duration-300">
-                                View on GitHub
-                              </p>
-                            </div>
-                          ) : (
-                            <>
-                              <img
-                                src={project.src || "/placeholder.svg"}
-                                alt={project.name}
-                                className="h-full w-full object-cover object-center transition-transform duration-300 group-hover:scale-105"
-                              />
-                              <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-all duration-300" />
-                              {(project.type === 'gallery' || project.gallery.length > 0) && (
-                                <div className="absolute bottom-4 left-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                                  <p className="text-white text-sm font-medium">Click to view gallery</p>
-                                </div>
-                              )}
-                            </>
+                          className={cn(
+                            "relative h-full w-full group",
+                            (project.type === 'gallery' || project.gallery.length > 0) ? "cursor-pointer" : ""
                           )}
+                          style={{
+                            borderRadius: "18px",
+                            padding: "1px",
+                            backgroundColor: "#33313d",
+                            transition: "background-color 0.3s ease-in-out",
+                          }}
+                          onClick={(project.type === 'gallery' || project.gallery.length > 0) ? openGallery : undefined}
+                        >
+                          <div
+                            className="relative h-full w-full overflow-hidden transition-all duration-300 flex items-center justify-center"
+                            style={{
+                              borderRadius: "17px",
+                              background: project.githubUrl 
+                                ? 'linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%)'
+                                : 'transparent'
+                            }}
+                          >
+                            {project.githubUrl ? (
+                              <div className="flex flex-col items-center justify-center text-white">
+                                <GitHubLogo className="w-32 h-32 mb-4 text-gray-300 group-hover:text-white transition-colors duration-300" />
+                                <p className="text-lg font-semibold opacity-75 group-hover:opacity-100 transition-opacity duration-300">
+                                  View on GitHub
+                                </p>
+                              </div>
+                            ) : (
+                              <>
+                                <img
+                                  src={project.src || "/placeholder.svg"}
+                                  alt={project.name}
+                                  className="h-full w-full object-cover object-center transition-transform duration-300 group-hover:scale-105"
+                                />
+                                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-all duration-300" />
+                                {(project.type === 'gallery' || project.gallery.length > 0) && (
+                                  <div className="absolute bottom-4 left-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                    <p className="text-white text-sm font-medium">Click to view gallery</p>
+                                  </div>
+                                )}
+                              </>
+                            )}
+                          </div>
                         </div>
-                      </div>
-                    </motion.div>
-                  ))}
-                </AnimatePresence>
-              </div>
-            </div>
-
-            {/* Content Section */}
-            <div className="flex justify-between flex-col py-4 w-full">
-              <motion.div
-                key={active}
-                initial={{ y: 20, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                exit={{ y: -20, opacity: 0 }}
-                transition={{ duration: 0.2, ease: "easeInOut" }}
-              >
-                <h3 className="text-2xl font-bold text-white mb-2">{filteredProjects[active].name}</h3>
-                <p className="text-gray-400 text-sm mb-4">{filteredProjects[active].designation}</p>
-
-                {/* Technologies */}
-                <div className="flex flex-wrap gap-2 mb-6">
-                  {filteredProjects[active].technologies.map((tech, index) => (
-                    <span
-                      key={index}
-                      className="px-3 py-1 text-white text-xs rounded-full border border-white/20"
-                    >
-                      {tech}
-                    </span>
-                  ))}
+                      </motion.div>
+                    ))}
+                  </AnimatePresence>
                 </div>
+              </div>
 
-                <motion.p className="text-lg text-gray-300 leading-relaxed mb-8">
-                  {filteredProjects[active].quote.split(" ").map((word, index) => (
-                    <motion.span
-                      key={index}
-                      initial={{ filter: "blur(10px)", opacity: 0, y: 5 }}
-                      animate={{
-                        filter: "blur(0px)",
-                        opacity: 1,
-                        y: 0,
-                      }}
-                      transition={{
-                        duration: 0.2,
-                        ease: "easeInOut",
-                        delay: 0.02 * index,
-                      }}
-                      className="inline-block"
-                    >
-                      {word}&nbsp;
-                    </motion.span>
-                  ))}
-                </motion.p>
-              </motion.div>
+              {/* Content Section */}
+              <div className="flex justify-between flex-col py-4 w-full">
+                <motion.div
+                  key={active}
+                  initial={{ y: 20, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  exit={{ y: -20, opacity: 0 }}
+                  transition={{ duration: 0.2, ease: "easeInOut" }}
+                >
+                  <h3 className="text-2xl font-bold text-white mb-2">{filteredProjects[active].name}</h3>
+                  <p className="text-gray-400 text-sm mb-4">{filteredProjects[active].designation}</p>
 
-              {/* Controls */}
-              <div className={`flex gap-4 ${isMobileView ? "pt-12" : "md:pt-0"} w-full items-center`}>
-                <CircularButton onClick={handlePrev} icon={<ChevronLeft className="w-5 h-5" />} />
-                <CircularButton onClick={handleNext} icon={<ChevronRight className="w-5 h-5" />} />
-                <ViewProjectButton 
-                  onClick={handleViewProject} 
-                  icon={getButtonIcon()} 
-                  text={getButtonText()}
-                />
+                  {/* Technologies */}
+                  <div className="flex flex-wrap gap-2 mb-6">
+                    {filteredProjects[active].technologies.map((tech, index) => (
+                      <span
+                        key={index}
+                        className="px-3 py-1 text-white text-xs rounded-full border border-white/20"
+                      >
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+
+                  <motion.p className="text-lg text-gray-300 leading-relaxed mb-8">
+                    {filteredProjects[active].quote.split(" ").map((word, index) => (
+                      <motion.span
+                        key={index}
+                        initial={{ filter: "blur(10px)", opacity: 0, y: 5 }}
+                        animate={{
+                          filter: "blur(0px)",
+                          opacity: 1,
+                          y: 0,
+                        }}
+                        transition={{
+                          duration: 0.2,
+                          ease: "easeInOut",
+                          delay: 0.02 * index,
+                        }}
+                        className="inline-block"
+                      >
+                        {word}&nbsp;
+                      </motion.span>
+                    ))}
+                  </motion.p>
+                </motion.div>
+
+                {/* Controls */}
+                <div className={`flex gap-4 ${isMobileView ? "pt-12" : "md:pt-0"} w-full items-center`}>
+                  <CircularButton onClick={handlePrev} icon={<ChevronLeft className="w-5 h-5" />} />
+                  <CircularButton onClick={handleNext} icon={<ChevronRight className="w-5 h-5" />} />
+                  <ViewProjectButton 
+                    onClick={handleViewProject} 
+                    icon={getButtonIcon()} 
+                    text={getButtonText()}
+                  />
+                </div>
               </div>
             </div>
           </div>
-        </div>
+        ) : (
+          <div className="text-center py-20">
+            <div className="inline-flex items-center gap-2 bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg px-6 py-4 text-white mb-4">
+              <div className="w-3 h-3 bg-gray-400 rounded-full" />
+              <span className="text-lg">No projects found for this category</span>
+            </div>
+            <p className="text-gray-400 text-lg">Try selecting a different filter to explore our other work</p>
+          </div>
+        )}
       </div>
 
       {/* Gallery Modal */}
